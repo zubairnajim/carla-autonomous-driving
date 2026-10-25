@@ -38,23 +38,7 @@ The driving code never reads simulator ground truth. A separate scorer compares 
 
 ## How it works
 
-```mermaid
-flowchart LR
-    CAM[RGB camera<br/>800x600, 20 Hz] --> LANE[Lane detection<br/>IPM + top-hat]
-    CAM --> TL[Traffic lights<br/>HSV + housing + gate]
-    CAM --> OBJ[YOLOX in cv2.dnn<br/>people, vehicles]
-    LID[LiDAR<br/>32 ch, 50 m] --> LP[LiDAR processing<br/>obstacle corridor, ranging]
-    LID --> TL
-    LID --> OBJ
-    MAP[HD map] --> NAV[A* route planner]
-    LANE --> BP[Behaviour planner<br/>lowest speed limit wins]
-    TL --> BP
-    OBJ --> BP
-    LP --> BP
-    NAV --> BP
-    BP --> CTRL[Pure pursuit + PI<br/>speed control]
-    CTRL --> CAR[Vehicle]
-```
+![Architecture: camera and LiDAR feed lane, traffic-light, object and LiDAR processing; with the A* route planner they feed the behaviour planner, which drives the controller](docs/figures/architecture.png)
 
 Every 50 ms each rule proposes a speed limit (cruise, junction, curve, red light, pedestrian, obstacle, destination) and the most cautious one wins. Steering follows the camera-detected lane when it is confident and agrees with the map, and the route's waypoints through junctions and tight corners.
 
