@@ -1,0 +1,11 @@
+# CARLA simulator package (downloaded by setup.ps1, ~18 GB)
+simulator/
+# detector weights (downloaded by setup.ps1)
+models/*.onnx
+# run outputs: telemetry, dumps, recordings
+runs/
+output/
+*.mp4
+*.npy
+__pycache__/
+*.pyc

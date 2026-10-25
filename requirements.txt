@@ -1,0 +1,7 @@
+carla==0.9.16
+opencv-python
+numpy
+
+# only for tools/make_figures.py and tools/make_media.py
+# matplotlib
+# pillow
